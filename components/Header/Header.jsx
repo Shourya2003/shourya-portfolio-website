@@ -48,7 +48,7 @@ const Header = () => {
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
         // Save dark mode preference in local storage
-        localStorage.setItem('darkMode', isDarkMode);
+        localStorage.setItem('darkMode', !isDarkMode);
     };
 
     const currentYear = new Date().getFullYear();

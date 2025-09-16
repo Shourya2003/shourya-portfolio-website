@@ -1,5 +1,4 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React from 'react';
 import { mapData } from './MapData';
 
 const containerStyle = {
@@ -9,6 +8,12 @@ const containerStyle = {
   boxShadow: '0 8px 26px 0 rgba(22, 24, 26, 0.11)',
   transition: 'ease-out 0.16s',
   marginTop: '1.5rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: '#f0f0f0',
+  color: '#555',
+  fontSize: '14px',
 };
 
 const center = {
@@ -17,33 +22,12 @@ const center = {
 };
 
 const Map = () => {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
-  });
-
-  const [map, setMap] = React.useState(null);
-
-  const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
-  return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={12} // ✅ Set zoom manually instead of fitBounds
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      {/* You can add a marker to highlight Noida */}
-      <></>
-    </GoogleMap>
-  ) : <></>
-}
+  return (
+    <div style={containerStyle}>
+      <p>🗺️ Google Map Disabled (API Key not set)</p>
+      <p>Lat: {center.lat}, Lng: {center.lng}</p>
+    </div>
+  );
+};
 
 export default Map;

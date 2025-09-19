@@ -23,6 +23,7 @@ export default function Home() {
                         <div className="sections-wrapper">
                             {/* About Section */}
                             <About />
+                            <Resume />
                             {/* Portfolio Section */}
                             <Portfolio />
                             {/* Services Section */}
@@ -30,7 +31,6 @@ export default function Home() {
                             {/* Testimonial Section */}
                             {/* <Testimonial /> */}
                             {/* Resume Section */}
-                            <Resume />
                             {/* Clients Section */}
                             {/* <Clients /> */}
                             {/* Blog Section */}

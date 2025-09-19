@@ -25,6 +25,7 @@ const Connect = () => {
             setSubmitStatus('success');
         } else {
             setSubmitStatus('error');
+            
         }
     };
 

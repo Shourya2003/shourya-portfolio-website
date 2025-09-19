@@ -11,7 +11,19 @@ export const aboutData = {
         hoursOfWorking: "40",     // Standard weekly hours
         projectsDone: "3",        // NifiPayment, Fintura, HomeTutorx
         typewriter: ['Hi There!', 'I\'m Shourya Verma'],
+        dateOfBirth: "2003-10-28" // ✅ Add this
     },
+
+    // ✅ Add this section for your personal details
+    personalDetails: [
+        // { label: "Full Name", value: "Shourya Verma" },
+        {  icon: 'fas fa-envelope', value: "shouryaverma2728@gmail.com" },
+        {  icon: 'fas fa-phone', value: "+91 82668 55865" },
+        { icon: 'fas fa-location-dot', value: "Noida, Uttar Pradesh" },
+        // { label: "Birthday", value: "28th July, 2003" },
+        { icon: 'fas fa-language', value: "English, Hindi" }
+    ],
+
     skills: [
         {
             id: 1,

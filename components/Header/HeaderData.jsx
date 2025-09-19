@@ -9,12 +9,12 @@ export const headerData = {
         twitterURL: '#',  
         youtubeURL: '#',  
     },
-    links: [
-        { name: 'Home', url: '/' },
-        { name: 'About', url: '/about' },
-        { name: 'Projects', url: '/projects' },
-        { name: 'Contact', url: '/contact' },
-    ],
+    // links: [
+    //     { name: 'Home', url: '/' },
+    //     { name: 'About', url: '/about' },
+    //     { name: 'Projects', url: '/projects' },
+    //     { name: 'Contact', url: '/contact' },
+    // ],
 socialLinks: [
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rjshouryaverma', icon: 'fab fa-linkedin' },
     { name: 'GitHub', url: 'https://github.com/', icon: 'fab fa-github' },

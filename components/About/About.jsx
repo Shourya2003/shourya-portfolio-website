@@ -23,7 +23,9 @@ const About = () => {
     projectsDone: 0,
   });
 
-  const [age, setAge] = useState(calculateDecimalAge(aboutData.mainData.dateOfBirth));
+  const [age, setAge] = useState(
+    calculateDecimalAge(aboutData.mainData.dateOfBirth)
+  );
 
   // Animate skill counters (your existing logic)
   useEffect(() => {
@@ -107,10 +109,7 @@ const About = () => {
               {aboutData.personalDetails.map((detail, index) => (
                 <li key={index} className="mb-2">
                   <strong>
-                    <i
-                      className={detail.icon}
-                      style={{ fontSize: "13px" }}
-                    ></i>
+                    <i className={detail.icon} style={{ fontSize: "13px" }}></i>
                   </strong>{" "}
                   {detail.value}
                 </li>
@@ -196,4 +195,3 @@ const About = () => {
 };
 
 export default About;
-

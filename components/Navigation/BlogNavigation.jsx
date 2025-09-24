@@ -1,81 +1,76 @@
-import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import Link from "next/link";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 const PortfolioNavigation = () => {
-    const [isFixed, setIsFixed] = useState(false);
-    const [activeLink, setActiveLink] = useState('blog');
+  const [isFixed, setIsFixed] = useState(false);
+  const [activeLink, setActiveLink] = useState("blog");
 
-    // array of navigation items with their corresponding IDs
-    const navItems = [
-        { label: 'Home', id: '/' },
-        { label: 'Blog', id: 'blog' },
-    ];
+  // ✅ keep navItems stable across renders
+  const navItems = useMemo(
+    () => [
+      { label: "Home", id: "/" },
+      { label: "Blog", id: "blog" },
+    ],
+    []
+  );
 
-    // function to handle the scroll event
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
+  // ✅ stable scroll handler
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
 
-        // Determine which link is active based on the scroll position
-        for (const item of navItems) {
-            const element = document.getElementById(item.id);
-            if (element && scrollY >= element.offsetTop) {
-                setActiveLink(item.id);
-            }
-        }
+    for (const item of navItems) {
+      const element = document.getElementById(item.id);
+      if (element && scrollY >= element.offsetTop - 100) {
+        setActiveLink(item.id);
+      }
+    }
 
-        // Calculate headerHeight and update isFixed
-        const headerHeight = document.getElementById('header').clientHeight;
-        const windowWidth = window.innerWidth;
+    const header = document.getElementById("header");
+    if (!header) return;
+    const headerHeight = header.clientHeight;
 
-        if (windowWidth < 992) {
-            if (scrollY >= headerHeight) {
-                setIsFixed(true);
-            } else {
-                setIsFixed(false);
-            }
-        }
+    if (window.innerWidth < 992) {
+      setIsFixed(scrollY >= headerHeight);
+    }
+  }, [navItems]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    const header = document.getElementById("header");
+    if (
+      header &&
+      window.innerWidth < 992 &&
+      window.scrollY >= header.clientHeight
+    ) {
+      setIsFixed(true);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
+  }, [handleScroll]);
 
-    // Add a scroll event listener when the component mounts
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+  return (
+    <div className="nav-wrapper">
+      <div className={`section-nav ${isFixed ? "fixed" : ""}`}>
+        <ul className="nav">
+          {navItems.map((item) => (
+            <li className="nav-item" key={item.id}>
+              <Link
+                href={item.id === "/" ? "/" : `#${item.id}`}
+                className={`nav-link ${activeLink === item.id ? "active" : ""}`}
+              >
+                <span className="nav-link-desktop">{item.label}</span>
+                <span className="nav-link-mobile">{item.label.charAt(0)}</span>
+                <span className="nav-circle"></span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-        // Get the initial headerHeight
-        const initialHeaderHeight = document.getElementById('header').clientHeight;
-
-        // Check and update isFixed initially
-        const windowWidth = window.innerWidth;
-        if (windowWidth < 992) {
-            if (window.scrollY >= initialHeaderHeight) {
-                setIsFixed(true);
-            }
-        }
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    return (
-        <div className="nav-wrapper">
-            <div className={`section-nav ${isFixed ? 'fixed' : ''}`}>
-                <ul className="nav">
-                    {navItems.map((item) => (
-                        <li className="nav-item" key={item.id}>
-                            <Link
-                                href={`${activeLink === item.id ? '#' : '/'}`}
-                                className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
-                            >
-                                <span className="nav-link-desktop">{item.label}</span>
-                                <span className="nav-link-mobile">{item.label.charAt(0)}</span>
-                                <span className="nav-circle"></span>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    )
-}
-
-export default PortfolioNavigation
+export default PortfolioNavigation;

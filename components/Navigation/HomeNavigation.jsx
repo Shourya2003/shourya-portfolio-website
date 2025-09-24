@@ -1,23 +1,28 @@
 import Link from "next/link";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { FaDownload } from "react-icons/fa";
 
-const Navigation = () => {
+const HomeNavigation = () => {
   const [isFixed, setIsFixed] = useState(false);
   const [activeLink, setActiveLink] = useState("about");
 
-  const navItems = [
-    { label: "About Me", id: "about" },
-    { label: "Resume", id: "resume" },
-    { label: "Portfolio", id: "portfolio" },
-    { label: "Services", id: "services" },
-    { label: "Projects", id: "blog" },
-    { label: "Contact", id: "contact" },
-  ];
+  // ✅ useMemo to keep navItems stable across renders
+  const navItems = useMemo(
+    () => [
+      { label: "About Me", id: "about" },
+      { label: "Resume", id: "resume" },
+      { label: "Portfolio", id: "portfolio" },
+      { label: "Services", id: "services" },
+      { label: "Projects", id: "blog" },
+      { label: "Contact", id: "contact" },
+    ],
+    []
+  );
 
-  // ✅ wrap with useCallback so it's stable
+  // ✅ useCallback so function is stable
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
+
     for (const item of navItems) {
       const element = document.getElementById(item.id);
       if (element && scrollY >= element.offsetTop - 100) {
@@ -25,22 +30,36 @@ const Navigation = () => {
       }
     }
 
-    const headerHeight = document.getElementById("header")?.clientHeight || 0;
+    const header = document.getElementById("header");
+    if (!header) return;
+    const headerHeight = header.clientHeight;
+
     if (window.innerWidth < 992) {
       setIsFixed(scrollY >= headerHeight);
     }
-  }, [navItems]); // ✅ dependency
+  }, [navItems]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // run once on mount
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]); // ✅ now stable
+
+    const header = document.getElementById("header");
+    if (
+      header &&
+      window.innerWidth < 992 &&
+      window.scrollY >= header.clientHeight
+    ) {
+      setIsFixed(true);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   const handleDownloadCV = (e) => {
     e.preventDefault();
     const link = document.createElement("a");
-    link.href = "/Shourya_Rverma.pdf";
+    link.href = "/Shourya_Rverma.pdf"; // ✅ must be inside /public
     link.download = "Shourya_Rverma.pdf";
     document.body.appendChild(link);
     link.click();
@@ -80,7 +99,7 @@ const Navigation = () => {
         </ul>
       </div>
 
-      {/* Same CSS as before */}
+      {/* Styles */}
       <style jsx>{`
         .download-btn {
           background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -96,14 +115,17 @@ const Navigation = () => {
           transition: all 0.3s ease;
           animation: pulseBorder 2s infinite;
         }
+
         .download-btn:hover {
           transform: scale(1.08);
           box-shadow: 0 0 18px rgba(37, 99, 235, 0.6);
           background: linear-gradient(135deg, #1d4ed8, #1e40af);
         }
+
         .nav-link-mobile svg {
           font-size: 18px;
         }
+
         @keyframes pulseBorder {
           0% {
             box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6);
@@ -115,6 +137,7 @@ const Navigation = () => {
             box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
           }
         }
+
         @media (max-width: 991px) {
           .download-btn {
             padding: 8px 12px;
@@ -126,4 +149,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default HomeNavigation;

@@ -1,56 +1,55 @@
 import Link from "next/link";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
-const BlogNavigation = () => {
+const PortfolioNavigation = () => {
   const [isFixed, setIsFixed] = useState(false);
   const [activeLink, setActiveLink] = useState("portfolio");
 
-  // array of navigation items with their corresponding IDs
-  const navItems = [
-    { label: "Home", id: "/" },
-    { label: "Portfolio", id: "portfolio" },
-  ];
+  // ✅ useMemo so navItems doesn’t recreate every render
+  const navItems = useMemo(
+    () => [
+      { label: "Home", id: "/" },
+      { label: "Portfolio", id: "portfolio" },
+    ],
+    []
+  );
 
-  // Wrap handleScroll with useCallback to avoid ESLint warning
+  // ✅ stable scroll handler
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
 
-    // Determine which link is active based on the scroll position
     for (const item of navItems) {
       const element = document.getElementById(item.id);
-      if (element && scrollY >= element.offsetTop) {
+      if (element && scrollY >= element.offsetTop - 100) {
         setActiveLink(item.id);
       }
     }
 
-    // Calculate headerHeight and update isFixed
     const header = document.getElementById("header");
-    if (!header) return; // prevent error if header doesn't exist
+    if (!header) return;
     const headerHeight = header.clientHeight;
-    const windowWidth = window.innerWidth;
 
-    if (windowWidth < 992) {
+    if (window.innerWidth < 992) {
       setIsFixed(scrollY >= headerHeight);
     }
-  }, [navItems]); // ✅ dependencies
+  }, [navItems]);
 
-  // Add a scroll event listener when the component mounts
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
-    // Check and update isFixed initially
     const header = document.getElementById("header");
-    if (header) {
-      const initialHeaderHeight = header.clientHeight;
-      if (window.innerWidth < 992 && window.scrollY >= initialHeaderHeight) {
-        setIsFixed(true);
-      }
+    if (
+      header &&
+      window.innerWidth < 992 &&
+      window.scrollY >= header.clientHeight
+    ) {
+      setIsFixed(true);
     }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [handleScroll]); // ✅ fixed dependencies
+  }, [handleScroll]);
 
   return (
     <div className="nav-wrapper">
@@ -59,7 +58,7 @@ const BlogNavigation = () => {
           {navItems.map((item) => (
             <li className="nav-item" key={item.id}>
               <Link
-                href={item.id === "/" ? "/" : `#${item.id}`}
+                href={`${item.id === "/" ? "/" : `#${item.id}`}`}
                 className={`nav-link ${activeLink === item.id ? "active" : ""}`}
               >
                 <span className="nav-link-desktop">{item.label}</span>
@@ -74,4 +73,4 @@ const BlogNavigation = () => {
   );
 };
 
-export default BlogNavigation;
+export default PortfolioNavigation;

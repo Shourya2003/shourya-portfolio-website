@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Typewriter from "typewriter-effect";
 import { aboutData } from "./AboutData";
@@ -11,10 +11,13 @@ const calculateDecimalAge = (dobString) => {
 };
 
 const About = () => {
-  const initialCounters = aboutData.skills.reduce((obj, skill) => {
-    obj[skill.id] = 0;
-    return obj;
-  }, {});
+  // ✅ Memoize initialCounters so it's stable across renders
+  const initialCounters = useMemo(() => {
+    return aboutData.skills.reduce((obj, skill) => {
+      obj[skill.id] = 0;
+      return obj;
+    }, {});
+  }, []);
 
   const [counters, setCounters] = useState({
     ...initialCounters,
@@ -27,7 +30,7 @@ const About = () => {
     calculateDecimalAge(aboutData.mainData.dateOfBirth)
   );
 
-  // Animate skill counters (your existing logic)
+  // Animate skill counters
   useEffect(() => {
     const animateCounters = () => {
       const duration = 2400;
@@ -44,7 +47,7 @@ const About = () => {
       }).forEach((key) => {
         const target = Number(
           key in initialCounters
-            ? aboutData.skills.find((s) => s.id == key)?.percent
+            ? aboutData.skills.find((s) => s.id === key)?.percent
             : aboutData.mainData[key]
         );
 
@@ -63,9 +66,9 @@ const About = () => {
     };
 
     animateCounters();
-  }, []);
+  }, [initialCounters]); // ✅ now it's safe
 
-  // ✅ Ultra-smooth Live Age with requestAnimationFrame
+  // ✅ Smooth running live age
   useEffect(() => {
     let frameId;
 
@@ -104,7 +107,8 @@ const About = () => {
           </div>
 
           <div className="mt-4 text-start">
-            <h5 className="fw-bold ">// Personal Details</h5>
+            {/* Personal Details Section */}
+            <h5 className="fw-bold ">{"// Personal Details"}</h5>
             <ul className="list-unstyled">
               {aboutData.personalDetails.map((detail, index) => (
                 <li key={index} className="mb-2">

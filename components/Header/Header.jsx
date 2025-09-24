@@ -112,11 +112,11 @@ const Header = () => {
                         ))} */}
           </ul>
         </div>
-        <div className="tm-bottom">
+        {/* <div className="tm-bottom">
           <p>
             &copy; {currentYear} {headerData.mainData.copywriter}.
           </p>
-        </div>
+        </div> */}
       </div>
       {/* End Toggle Menu */}
 

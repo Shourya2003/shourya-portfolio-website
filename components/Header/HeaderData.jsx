@@ -4,7 +4,7 @@ export const headerData = {
         secondName: 'Verma',
         phone: '+91 8266855865',
         email: 'shouryaverma2728@gmail.com',
-        copywriter: 'Passionate Software Developer | Full Stack Developer',
+        // copywriter: 'Passionate Software Developer | Full Stack Developer',
         facebookURL: '#', 
         twitterURL: '#',  
         youtubeURL: '#',  
@@ -18,8 +18,8 @@ export const headerData = {
 socialLinks: [
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rjshouryaverma', icon: 'fab fa-linkedin' },
     { name: 'GitHub', url: 'https://github.com/', icon: 'fab fa-github' },
-    { name: 'Email', url: 'mailto:shouryaverma2728@gmail.com', icon: 'fas fa-envelope' },
-    { name: 'Phone', url: 'tel:+918266855865', icon: 'fas fa-phone' }
+    // { name: 'Email', url: 'mailto:shouryaverma2728@gmail.com', icon: 'fas fa-envelope' },
+    // { name: 'Phone', url: 'tel:+918266855865', icon: 'fas fa-phone' }
 ]
 
 

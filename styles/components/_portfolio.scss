@@ -6,20 +6,26 @@
 		margin: 0;
 		padding: 0;
 		li {
-			position: relative;
 			display: inline-block;
-			border: 1px dashed black;
-			border-radius: 2em;
 			margin: 0 7px 10px 0;
-			padding: 0.5em 1em;
-			font-size: 0.9em;
-			font-family: $font-family-mono;
-			color: black;
-			cursor: pointer;
-			@include transition(linear 0.1s);
-			&:hover, &.mixitup-control-active {
-				background: black;
-				color: white;
+			padding: 0;
+			button {
+				position: relative;
+				display: inline-block;
+				border: 1px dashed black;
+				border-radius: 2em;
+				background: transparent;
+				padding: 0.5em 1em;
+				font-size: 0.9em;
+				font-family: $font-family-mono;
+				color: black;
+				cursor: pointer;
+				@include transition(linear 0.1s);
+				&:hover, &.mixitup-control-active {
+					background: black;
+					border-style: solid;
+					color: white;
+				}
 			}
 		}
 	}
@@ -28,11 +34,13 @@
 	.filter {
 		ul {
 			li {
-				border-color: white;
-				color: white;
-				&:hover, &.mixitup-control-active {
-					background: white;
-					color: black;
+				button {
+					border-color: white;
+					color: white;
+					&:hover, &.mixitup-control-active {
+						background: white;
+						color: black;
+					}
 				}
 			}
 		}

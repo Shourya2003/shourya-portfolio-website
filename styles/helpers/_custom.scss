@@ -1,3 +1,71 @@
 //
 // Your Custom styles //
+// Futuristic layer: gradient type, glow cards, neon accents. Dark-mode aware.
 //
+
+:root {
+  --future-accent: #6c5ce7;
+  --future-accent-2: #00d2ff;
+  --future-glow: rgba(108, 92, 231, 0.35);
+}
+
+// Gradient display name in header
+#header h1.display-2 {
+  background: linear-gradient(100deg, currentColor 20%, var(--future-accent) 50%, var(--future-accent-2) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+#header h1.display-2 .stroke-text {
+  -webkit-text-fill-color: transparent;
+}
+
+// Cards: subtle lift + glow on hover
+.section-box {
+  position: relative;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.section-box:hover {
+  box-shadow: 0 12px 40px -12px var(--future-glow);
+}
+
+// Skill pills: neon edge on hover
+.list-inline-pills li {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.list-inline-pills li:hover {
+  border-color: var(--future-accent);
+  box-shadow: 0 0 0 1px var(--future-accent), 0 4px 18px -6px var(--future-glow);
+  transform: translateY(-1px);
+}
+
+// Portfolio + blog cards: image zoom, caption glow
+.portfolio-box, .blog-box {
+  overflow: hidden;
+}
+.portfolio-box img, .blog-box img {
+  transition: transform 0.4s ease;
+}
+.portfolio-box:hover img, .blog-box:hover img {
+  transform: scale(1.04);
+}
+
+// Buttons: gradient primary action
+.button-dark, .download-btn {
+  background: linear-gradient(135deg, var(--future-accent), #1d4ed8);
+  border: none;
+}
+
+// Backdrop section titles: faint neon wash
+.title-heading::before {
+  background: linear-gradient(90deg, transparent, var(--future-glow), transparent);
+}
+
+// Respect reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .section-box, .list-inline-pills li, .portfolio-box img, .blog-box img {
+    transition: none;
+  }
+  .portfolio-box:hover img, .blog-box:hover img {
+    transform: none;
+  }
+}

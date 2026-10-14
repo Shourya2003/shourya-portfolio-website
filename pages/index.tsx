@@ -49,7 +49,7 @@ export default function Home() {
               telephone: "+91-8266855865",
               url: mainData.siteUrl,
               sameAs: [
-                "https://www.linkedin.com/in/shouryaverma",
+                "https://www.linkedin.com/in/rjshouryaverma",
                 "https://github.com/shouryaverma",
               ],
               knowsAbout: [

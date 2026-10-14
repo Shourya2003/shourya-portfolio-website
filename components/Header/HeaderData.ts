@@ -18,7 +18,7 @@ export const headerData = {
   socialLinks: [
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/shouryaverma",
+      url: "https://www.linkedin.com/in/rjshouryaverma",
       icon: "fab fa-linkedin",
     },
     {

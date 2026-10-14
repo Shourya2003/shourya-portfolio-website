@@ -1,4 +1,4 @@
-import HeroAvatar from "@/public/images/hero-avatar.png";
+import HeroAvatar from "@/public/images/hero-avatar.jpg";
 
 export const aboutData = {
   mainData: {
@@ -7,8 +7,8 @@ export const aboutData = {
     heroAvatar: HeroAvatar,
     jobTitle: "Software Developer · Full-Stack · Agentic AI",
     description:
-      "— Software Developer with 2.5+ years shipping production web apps across SaaS, fintech and enterprise platforms, with measurable gains in release velocity, page-load performance and API latency. Full-stack across React, Next.js, TypeScript, Node.js, NestJS and MongoDB — currently building agentic AI tooling with Model Context Protocol (MCP) servers.",
-    yearsOfExperience: "2",
+      "— Software Developer with 3+ years shipping production web apps across SaaS, fintech and enterprise platforms, with measurable gains in release velocity, page-load performance and API latency. Full-stack across React, Next.js, TypeScript, Node.js, NestJS and MongoDB — currently building agentic AI tooling with Model Context Protocol (MCP) servers.",
+    yearsOfExperience: "3",
     hoursOfWorking: "15",
     projectsDone: "15",
     typewriter: [

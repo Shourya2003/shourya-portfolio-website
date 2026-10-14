@@ -203,6 +203,8 @@ body {
 		height: auto;
 		max-width: 256px;
 		max-height: 256px;
+		aspect-ratio: 1;
+		object-fit: cover;
 		border-radius: 50%;
 	}
 	.hero-avatar-text {

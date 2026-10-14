@@ -206,6 +206,8 @@ body {
 		aspect-ratio: 1;
 		object-fit: cover;
 		border-radius: 50%;
+		border: 4px solid white;
+		box-shadow: 0 8px 26px 0 rgba(22,24,26,0.15);
 	}
 	.hero-avatar-text {
 		position: absolute;
